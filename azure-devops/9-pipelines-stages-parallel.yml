@@ -1,0 +1,41 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: Build
+    jobs:
+    - job: BuildJob
+      steps:
+      - bash: echo BuildJob
+
+  - stage: Deploy
+    jobs:
+    - job: DeployJob
+      steps:
+      - bash: echo DeployJob
+
+  - stage: TestWebPerformance
+    dependsOn: Deploy
+    jobs:
+    - job: TestWebPerformanceJob
+      steps:
+      - bash: echo TestWebPerformanceJob
+
+  - stage: TestSecurity
+    dependsOn: Deploy
+    jobs:
+    - job: TestSecurityJob
+      steps:
+      - bash: echo TestSecurityJob
+  
+  - stage: Handover
+    dependsOn: 
+     - TestWebPerformance
+     - TestSecurity
+    jobs:
+    - job: HandoverJob
+      steps:
+      - bash: echo HandoverJob

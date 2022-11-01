@@ -1,0 +1,23 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+      RootLevelVariable: RootVariableValue
+
+stages:
+- stage: MyStage
+  variables:
+      StageLevelVariable: StageVariableValue
+  jobs:
+  - job: MyJob
+    variables:
+      JobLevelVariable: JobVariableVale
+    steps:
+        - bash: echo $(PipelineUIVariable)
+        - bash: echo $(RootLevelVariable)
+        - bash: echo $(StageLevelVariable)
+        - bash: echo $(JobLevelVariable)
+        
